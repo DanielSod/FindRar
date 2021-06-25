@@ -9,21 +9,23 @@ namespace FindRarCon
 {
     public class BibiFiles
     {
-        private string path { get; set; }
         private string curDir { get; set; }
-        
         public List<string> CurFileCollection { get; set; }
 
+      
+
+
+        #region Finished functions
+//          Displays the different types and the qty of each
         public string FileTypes(List<string> CurFileCollection)
         {
-            string fileTypes = string.Empty;
-            int mp3 = 0; 
-            int rar = 0;
-            int zip = 0;
-            int mp4 = 0;
+          string fileTypes = string.Empty;
+          int mp3 = 0;
+          int rar = 0;
+          int zip = 0;
+          int mp4 = 0;
 
             string[] fileExtensions = { ".mp3", ".rar", ".zip", ".mp4" };
-
             foreach (var fileItem in CurFileCollection)
             {
                 if (fileItem.Contains(fileExtensions[0]))
@@ -35,23 +37,17 @@ namespace FindRarCon
                 if (fileItem.Contains(fileExtensions[3]))
                     mp4++;
             }
-
-            fileTypes = 
-                  "\n Mp3 filer: " + mp3.ToString() 
-                + "\n Rar filer: " + rar.ToString()  
-                + "\n Zip filer: " + zip.ToString() 
+            fileTypes =
+                  "\n Mp3 filer: " + mp3.ToString()
+                + "\n Rar filer: " + rar.ToString()
+                + "\n Zip filer: " + zip.ToString()
                 + "\n Mp4 filer: " + mp4.ToString();
             Console.WriteLine(fileTypes);
             return fileTypes;
         }
 
 
-
-
-
-
-        #region Finished functions
-
+//          Displays a list with all the files in dir
         public List<string> FileList(string path)
         {
             CurFileCollection = null;
@@ -68,6 +64,8 @@ namespace FindRarCon
             return getFileList;
         }
 
+
+//          Checks how many objects there is in dir
         public int CountItems(string path)
         {
             int countItem = 0;
@@ -86,9 +84,11 @@ namespace FindRarCon
             return countItem;
         }
 
+
+//          Sets dir correctly
         public string SetDir(string path)
         {
-            path = @"H:\_TestZips\";
+            path = @"C:\_TestZips";
             Directory.SetCurrentDirectory(path);
             return curDir = path;
         }
@@ -97,7 +97,8 @@ namespace FindRarCon
 }
 #endregion
 
-
+//  string FileTypes(List<string> CurFileCollection)
+//                                      - list and specify qty of different extensions
 //  List<string> FileList(string path)  - list of file names
 //  int CountItems(string path)         - counts the number of files in dir
 //  string SetDir(string path)          - sets directory to hardcoded dir

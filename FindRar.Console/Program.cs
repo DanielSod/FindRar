@@ -2,56 +2,41 @@
 using System.IO;
 using System.Threading;
 
+using FindRarCon.Functions;
+
 namespace FindRarCon
 {
-    class Program
+   class Program
     {
-        public string Path { get; set; }
-        private static string path { get; set; }
+      public string Path { get; set; }
+      private static string path { get; set; }
 
-        static void Main(string[] args)
-        {
-            path = @"H:\_TestZips\";
-            
-            BibiFiles bibiFiles = new BibiFiles();
-            bibiFiles.SetDir(path);
-            bibiFiles.CountItems(path);
-            bibiFiles.FileList(path);
-            bibiFiles.FileTypes(bibiFiles.CurFileCollection);
-            /*
-            bibiFiles.GetBibiFiles();
-            */
+      static void Main(string[] args)
+      {
+         path = @"C:\_TestZips\";
 
+         BibiFiles bibiFiles = new BibiFiles();
+         bibiFiles.SetDir(path);
+         bibiFiles.CountItems(path);
+         bibiFiles.FileList(path);
+         bibiFiles.FileTypes(bibiFiles.CurFileCollection);
 
-            /* Console.WriteLine("Load development");
-               Thread.Sleep(400);
+         PrintFiles();
 
-               //DevPart();  
+         //FilesToTxt filesToTxt = new FilesToTxt();
+         //filesToTxt.InsertDir(path);
+         //filesToTxt.FilesCollection(path);
+         //filesToTxt.ExportToTxt();
 
-               Console.WriteLine("Done");
-               Console.WriteLine("Press any key to continue...");
+      }
 
-               Console.ReadKey(); */
-        }
+      static void PrintFiles()
+      {
+         FilesToTxt files = new FilesToTxt();
+         files.FilesCollection(path);
+      }
 
-
-        // Display correct directory
-        static void DevPart()
-        {
-            string curDir = Directory.GetCurrentDirectory();
-            string pathCreate = @"C:\Users\danie\Videos\newDir\";
-            Console.WriteLine(curDir);
-            Directory.CreateDirectory(pathCreate);
-
-            bool validDir = Directory.Exists(pathCreate);
-            if(validDir == true)
-                Console.WriteLine("Dir exist");
-            else
-                Console.WriteLine("Dit doesnt exist");
-            Directory.SetCurrentDirectory(pathCreate);
-            Console.WriteLine(Directory.GetCurrentDirectory());
-        }
-    }
+   }
 }
 
 /*
