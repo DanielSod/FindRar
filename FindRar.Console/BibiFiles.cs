@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace FindRarCon
@@ -12,18 +9,24 @@ namespace FindRarCon
         private string curDir { get; set; }
         public List<string> CurFileCollection { get; set; }
 
-      
+        public void CollectFiles(string path)
+        {
+            SetDir(path);
+            CountItems(path);
+            FileList(path);
+            FileTypes(CurFileCollection);
+        }
 
 
         #region Finished functions
-//          Displays the different types and the qty of each
+        //          Displays the different types and the qty of each
         public string FileTypes(List<string> CurFileCollection)
         {
-          string fileTypes = string.Empty;
-          int mp3 = 0;
-          int rar = 0;
-          int zip = 0;
-          int mp4 = 0;
+            string fileTypes = string.Empty;
+            int mp3 = 0;
+            int rar = 0;
+            int zip = 0;
+            int mp4 = 0;
 
             string[] fileExtensions = { ".mp3", ".rar", ".zip", ".mp4" };
             foreach (var fileItem in CurFileCollection)
@@ -47,7 +50,7 @@ namespace FindRarCon
         }
 
 
-//          Displays a list with all the files in dir
+        //          Displays a list with all the files in dir
         public List<string> FileList(string path)
         {
             CurFileCollection = null;
@@ -65,13 +68,13 @@ namespace FindRarCon
         }
 
 
-//          Checks how many objects there is in dir
+        //          Checks how many objects there is in dir
         public int CountItems(string path)
         {
             int countItem = 0;
             string[] fileCollection = Directory.GetFiles(path);
 
-            if (String.IsNullOrEmpty(fileCollection.ToString())) 
+            if (String.IsNullOrEmpty(fileCollection.ToString()))
                 File.Create(path + "newFile.txt");
             else
             {
@@ -85,14 +88,14 @@ namespace FindRarCon
         }
 
 
-//          Sets dir correctly
+        //          Sets dir correctly
         public string SetDir(string path)
         {
-            path = @"C:\_TestZips";
+            path = @"H:\_TestZips";
             Directory.SetCurrentDirectory(path);
             return curDir = path;
         }
-        
+
     }
 }
 #endregion

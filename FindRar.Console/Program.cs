@@ -1,42 +1,35 @@
 ﻿using System;
 using System.IO;
-using System.Threading;
-
 using FindRarCon.Functions;
 
 namespace FindRarCon
 {
-   class Program
+    class Program
     {
-      public string Path { get; set; }
-      private static string path { get; set; }
+        public string Path { get; set; }
+        private static string path { get; set; }
 
-      static void Main(string[] args)
-      {
-         path = @"C:\_TestZips\";
+        static void Main(string[] args)
+        {
+            path = @"H:\_TestZips\";
 
-         BibiFiles bibiFiles = new BibiFiles();
-         bibiFiles.SetDir(path);
-         bibiFiles.CountItems(path);
-         bibiFiles.FileList(path);
-         bibiFiles.FileTypes(bibiFiles.CurFileCollection);
+            CollectFiles(path);
+            PrintFiles2Txt(path);
+        }
+        
+        static void CollectFiles(string path)
+        {
+            BibiFiles bibiFiles = new BibiFiles();
+            bibiFiles.CollectFiles(path);
+        }
 
-         PrintFiles();
+        static void PrintFiles2Txt(string path)
+        {
+            FilesToTxt files = new FilesToTxt();
+            files.ExportToTxt(path);
+        }
 
-         //FilesToTxt filesToTxt = new FilesToTxt();
-         //filesToTxt.InsertDir(path);
-         //filesToTxt.FilesCollection(path);
-         //filesToTxt.ExportToTxt();
-
-      }
-
-      static void PrintFiles()
-      {
-         FilesToTxt files = new FilesToTxt();
-         files.FilesCollection(path);
-      }
-
-   }
+    }
 }
 
 /*
