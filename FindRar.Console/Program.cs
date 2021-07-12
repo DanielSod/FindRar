@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using FindRarCon.Functions;
+using FindRarCon.Models;
 
 namespace FindRarCon
 {
@@ -9,43 +11,55 @@ namespace FindRarCon
         public string Path { get; set; }
         private static string path { get; set; }
 
+        public static string CurDir { get; set; }
+
         static void Main(string[] args)
         {
-            path = @"H:\_TestZips\";
-
-            CollectFiles(path);
-            PrintFiles2Txt(path);
+            //Choice simple or advanced
+            SimpleUnrar();
+            
+            //MainMenu();
         }
+
+        static void SimpleUnrar()
+        {
+            const string source = "D:\\UnzipFolder";
+            
+            Console.Write("Insert name of .rar file ");
+            string userInput = Console.ReadLine();
+            
+            StringBuilder rarSource = new StringBuilder();
+            rarSource.Append(source + "\\" + userInput);
+            string dirRar = rarSource.ToString();
+            string destinationFolder = dirRar.Remove(dirRar.LastIndexOf('.'));
+
+            System.Diagnostics.Process p = new System.Diagnostics.Process();
+                p.StartInfo.CreateNoWindow = true;
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.FileName = "\"C:\\Program Files\\WinRAR\\WinRAR.exe\"";
+                p.StartInfo.Arguments = string.Format(@"x -s ""{0}"" *.* ""{1}\""", dirRar, destinationFolder);
+                p.Start();
+                p.WaitForExit();
+
+            Console.WriteLine("Unzip done");
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
+        }
+
+        static void MainMenu()
+        {
+            MainMenu menu = new MainMenu();
+            menu.PrintMainMenu();
+
+        }
+
+
+        static void Exit()
+        {
+
+        }
+
         
-        static void CollectFiles(string path)
-        {
-            BibiFiles bibiFiles = new BibiFiles();
-            bibiFiles.CollectFiles(path);
-        }
-
-        static void PrintFiles2Txt(string path)
-        {
-            FilesToTxt files = new FilesToTxt();
-            files.ExportToTxt(path);
-        }
 
     }
 }
-
-/*
-    Jag vill med den här applikationen kunna skapa en txt-fil
-    som lägger till alla filer & mappar till en lista
- */
-
-
-/*
-    Jag vill kunna hitta alla rar filer i en directory
-        - Den ska sedan kunna leta igenom alla sub dirs
-        - Den ska kunna zippa upp filen i en ny mapp
-        - Namnet på mappen ska ta ut det relevanta namnet
-            och skapa ett nytt snyggare formaterat
-        - Ha möjlighet att flytta till rätt dir i samband 
-            med unzip
-        - Kunna radera orginalet så endast den ozippade 
-            versionen är kvar
- */
