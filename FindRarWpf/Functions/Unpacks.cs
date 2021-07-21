@@ -6,7 +6,25 @@ using System.Threading.Tasks;
 
 namespace FindRarWpf.Functions
 {
-    class Unpacks
+    public class Unpacks
     {
+        public void UnpackRar()
+        {
+
+        }
+
+        public void UnpackIso()
+        {
+
+        }
+
+
+
+        public void FilterRar()
+        {
+
+        }
+
+
     }
 }

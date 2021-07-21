@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace FindRarWpf.Functions
 {
-    class Exits
+    public class Exits
     {
+        public string GoodBye()
+        {
+            return "Good bye!";
+        }
+
     }
 }

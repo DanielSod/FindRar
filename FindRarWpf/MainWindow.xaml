@@ -6,73 +6,85 @@
         xmlns:local="clr-namespace:FindRarWpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="650" Width="600">
+
+    <!--<Window.DataContext>
+        <local:MyFiles/>
+    </Window.DataContext>-->
+    
     <Grid>
 
 
-        <TextBox x:Name="txtDir" Text="{Binding Path=CurDir}"
-            HorizontalAlignment="Left" VerticalAlignment="Top" 
-                 Margin="141,69,0,0" TextWrapping="Wrap" 
+        <TextBox x:Name="txtDir" Text=" - - "
+                 HorizontalAlignment="Left" VerticalAlignment="Top" 
+                 Margin="140,69,0,0" TextWrapping="Wrap" 
                  Height="47" Width="412"/>
+
+
+        <!-- DataGrid -->
+        <DataGrid x:Name="ListMyFiles"
+                  HorizontalAlignment="Left" VerticalAlignment="Top" 
+                 Margin="140,150,0,0"  
+                 Height="400" Width="412"/>
 
         
         <!-- Buttons -->
-        <Button Content="Clear" x:Name="btnmClear" Click="btnmClear_Click"
+        <Button Content="Clear" x:Name="btnmClear" 
+                Click="btnmClear_Click"
                 Margin="35,69,0,0" 
                 VerticalAlignment="Top" HorizontalAlignment="Left" 
                 Width="80" Height="45"/>
 
-        <Button Content="Create file list" x:Name="btnCreateFileList" Click="btnCreateFileList_Click"
+        <Button Content="Create file list" x:Name="btnCreateFileList" 
+                Click="btnCreateFileList_Click"
                 VerticalAlignment="Top" HorizontalAlignment="Left" 
-                Margin="35,136,0,0" 
+                Margin="35,152,0,0" 
                 Width="80" Height="45"/>
 
         <Button Content="Directory" x:Name="btnDirectory" Click="btnDirectory_Click"
                 VerticalAlignment="Top" HorizontalAlignment="Left" 
-                Margin="35,205,0,0" 
+                Margin="35,221,0,0" 
                 Width="80" Height="45"/>
 
         <Button Content="Unpack" x:Name="btnUnpack" Click="btnUnpack_Click"
-                Margin="35,273,0,0" 
+                Margin="35,289,0,0" 
                 VerticalAlignment="Top" HorizontalAlignment="Left" 
                 Width="80" Height="45"/>
 
         <Button Content="Erase" x:Name="btnErase" Click="btnErase_Click"
-                Margin="35,348,0,0" 
+                Margin="35,364,0,0" 
                 VerticalAlignment="Top" HorizontalAlignment="Left" 
                 Width="80" Height="45"/>
 
+        <Button Content="Exit" x:Name="btnExit" Click="btnExit_Click"
+            Margin="35,505,0,0" 
+            VerticalAlignment="Top" HorizontalAlignment="Left" 
+            Width="80" Height="45"/>
 
         <!-- Status, progress -->
-        <StatusBar HorizontalAlignment="Left" Height="24" Margin="378,569,0,0" VerticalAlignment="Top" Width="175"/>
+        <StatusBar HorizontalAlignment="Left" VerticalAlignment="Top"
+                   Height="24" Margin="378,569,0,0"  
+                   Width="175"/>
 
-        <ProgressBar HorizontalAlignment="Left" Height="24" Margin="141,569,0,0" VerticalAlignment="Top" Width="132"/>
-        
-        
+        <ProgressBar HorizontalAlignment="Left" VerticalAlignment="Top"
+                     Margin="141,569,0,0"  
+                     Height="24" Width="132"/>
+
+
         <!-- Textblocks -->
         <TextBlock Text="Rubrik" 
                    VerticalAlignment="Top" HorizontalAlignment="Left" 
                    Margin="125,20,0,0" Height="35" Width="340"/>
 
+
         <!-- Grids -->
-        <Grid HorizontalAlignment="Left" Height="399" Margin="10,10,0,0" VerticalAlignment="Top" Width="100"/>
-        <Grid HorizontalAlignment="Left" Height="599" Margin="125,10,0,0" VerticalAlignment="Top" Width="372"/>
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top"
+              Margin="10,10,0,0"
+              Height="399" Width="100"/>
 
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" 
+              Margin="125,10,0,0" 
+              Height="599" Width="372"/>
 
-        <!-- Listbox -->
-        <ListBox x:Name="FileListDisplay" ItemsSource="{Binding ListOfFiles}"
-            HorizontalAlignment="Left" VerticalAlignment="Top" 
-            Margin="141,136,0,0" BorderThickness="4" 
-            Height="407" Width="412">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Path=*}" />
-                        <!--<TextBlock Text="{Binding Path=Size}" />-->
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-            
-        </ListBox>
 
     </Grid>
 </Window>

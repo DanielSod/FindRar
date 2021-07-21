@@ -19,27 +19,32 @@ using FindRarWpf.Models;
 
 namespace FindRarWpf
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        //public string CurDir { get; set; }
         public string Path { get; set; }
-        //public object ListOfFiles { get; set; }
         public List<string> ListOfFiles { get; set; }
 
         public MainWindow()
         {
-            Path = @"H:\_TestZips\";
             InitializeComponent();
-            CurDir = Path;
-            txtDir.Text = CurDir;
+            Path = @"H:\_TestZips\";
+            
+            
+
+
+            //var tryFile = new MyFile();
+            //tryFile.Name = "rumpa";
+
+            //var trFile = new MyFile();
+            //trFile.Name = "fitta";
+
+            //var tFile = new MyFile();
+            //tFile.Name = "tutte";
         }
 
-
-                //CurDir
+        //CurDir
         #region CurDir
+        /*
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
         {
@@ -62,81 +67,34 @@ namespace FindRarWpf
             }
         }
         //CurDir
+        */
         #endregion
+        
+        
+        private void btnCreateFileList_Click(object sender, RoutedEventArgs e)
+        {
+            // Display the List of files in Listview
+            CreateFileList createFileList = new CreateFileList();
+            createFileList.FileListMain(Path);
+            ListMyFiles.ItemsSource = MyFiles.GetFileList();
+            //txtList.Text = "Lista av saker";
+        }
         
         
         private void btnmClear_Click(object sender, RoutedEventArgs e)
         {
-            
+
             btnCreateFileList.Content = "Create file list";
             btnDirectory.Content = "Directory";
             btnUnpack.Content = "Unpack";
             btnErase.Content = "Erase";
-
         }
 
-        private void btnCreateFileList_Click(object sender, RoutedEventArgs e)
-        {
-            if (btnCreateFileList.Content == "Create file list")
-            {
-
-            }
-            else if(btnCreateFileList.Content == "Save to file")
-            {
-
-            }
-            else
-            {
-
-            }
-
-            
-            CreateFileList createFileList = new CreateFileList();
-            ListOfFiles = new List<string>();
-            ListOfFiles = createFileList.FileCollection();
-            //ListOfFiles = createFileList.ExportFileList(CurDir);
-
-            string btnClickTwiceText = "Save to file";
-
-
-
-            btnCreateFileList.Content = btnClickTwiceText;
-            
-
-            
-        }
-        public void SecondClick()
-        {
-            //if ( == true)
-            //{
-            string PathFile = string.Empty;
-            PathFile = Path + "ListOfFiles.txt";
-            string timeStamp = DateTime.Now.ToString();
-            if (!File.Exists(PathFile))
-            {
-                File.Create(PathFile);
-                File.OpenWrite(PathFile);
-                File.WriteAllText(PathFile, timeStamp + "\n\n");
-
-                foreach (var fileItem in ListOfFiles)
-                {
-                    File.AppendText(fileItem);
-                }
-
-                File.SetLastAccessTime(PathFile, DateTime.Now);
-            }
-            else
-            {
-                File.WriteAllText(PathFile, "");
-            }
-
-
-            //}
-        }
 
         private void btnDirectory_Click(object sender, RoutedEventArgs e)
         {
-
+            Directs directs = new Directs();
+            Path = directs.NewDir(Path);
         }
 
         private void btnUnpack_Click(object sender, RoutedEventArgs e)
@@ -149,25 +107,51 @@ namespace FindRarWpf
 
         }
 
-   
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 
+    public class MyFiles
+    {
+        public static List<MyFile> FileList { get; set; } = GetFileList();
+        public static List<MyFile> GetFileList()
+        {
+            var file = @"H:\_TestZips\files.csv";
+            var lines = File.ReadAllLines(file);
+            var list = new List<MyFile>();
+            for (int i = 0; i < lines.Length; i++)
+            {
+                var line = lines[i].Split(',');
+                var myFile = new MyFile()
+                {
+                    Id = int.Parse(line[0]),
+                    Name = line[1],
+                    Size = int.Parse(line[2])
+                    
+                };
+                list.Add(myFile);
+            }
+            return list;
+        }
 
+        public string Name { get; set; }
 
-    /*
-     YourListBox.ItemsSource = new List<String> { "One", "Two", "Three" };
+    }
 
-Your XAML should look like:
+    public class MyFile
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Size { get; set; }
+        //public string Extension { get; set; }
+        //public Type Type { get; set; }
 
-<ListBox Margin="20" Name="YourListBox">
-    <ListBox.ItemTemplate> 
-        <DataTemplate> 
-            <StackPanel Orientation="Horizontal"> 
-                <TextBlock Text="{Binding}" /> 
-            </StackPanel> 
-        </DataTemplate> 
-    </ListBox.ItemTemplate> 
-</ListBox> 
+    }
 
-     */
+    //public enum Type
+    //{
+    //    rar,zip,iso,other
+    //}
 }

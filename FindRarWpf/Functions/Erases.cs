@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace FindRarWpf.Functions
 {
-    class Erases
+    public class Erases
     {
+
+
     }
 }

@@ -19,7 +19,10 @@ namespace FindRarWpf.Models
             {
                 return new List<FileItem>
                 {
-                    new FileItem { Name =name, Size=size, Dir=dir }
+                    new FileItem { 
+                        Name =name, 
+                        Size=size, 
+                        Dir=dir }
                 };
             }
         }
