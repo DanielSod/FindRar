@@ -23,6 +23,7 @@ namespace FindRarWpf
     {
         public string Path { get; set; }
         public List<string> ListOfFiles { get; set; }
+        private string EmptyString = string.Empty;
 
         public MainWindow()
         {
@@ -76,20 +77,20 @@ namespace FindRarWpf
             // Display the List of files in Listview
             CreateFileList createFileList = new CreateFileList();
             createFileList.FileListMain(Path);
+            createFileList.ListToTxt(Path);
             ListMyFiles.ItemsSource = MyFiles.GetFileList();
-            //txtList.Text = "Lista av saker";
+            txtDir.Text = Path;
         }
         
         
         private void btnmClear_Click(object sender, RoutedEventArgs e)
         {
-
+            ListMyFiles.ItemsSource = EmptyString;
             btnCreateFileList.Content = "Create file list";
             btnDirectory.Content = "Directory";
             btnUnpack.Content = "Unpack";
             btnErase.Content = "Erase";
         }
-
 
         private void btnDirectory_Click(object sender, RoutedEventArgs e)
         {
@@ -111,6 +112,11 @@ namespace FindRarWpf
         {
             this.Close();
         }
+
+        private void ListMyFiles_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
+        {
+
+        }
     }
 
     public class MyFiles
@@ -126,9 +132,9 @@ namespace FindRarWpf
                 var line = lines[i].Split(',');
                 var myFile = new MyFile()
                 {
-                    Id = int.Parse(line[0]),
-                    Name = line[1],
-                    Size = int.Parse(line[2])
+                    //Id = int.Parse(line[0]),
+                    Name = line[0],
+                    //Size = int.Parse(line[2])
                     
                 };
                 list.Add(myFile);

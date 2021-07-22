@@ -10,14 +10,15 @@ namespace FindRarWpf.Functions
     public class CreateFileList
     {
         public List<string> FileCollection { get; set; }
-
         private string Path { get; set; }
+
+
 
         public void FileListMain(string path)
         {
             Path = path;
 
-            // Imporn files
+            // Import files
             List<string> fileFiles = new List<string>();
             fileFiles = FileFiles(Path);
             Console.WriteLine(fileFiles);
@@ -27,55 +28,36 @@ namespace FindRarWpf.Functions
             dirFiles = DirFiles(Path);
             Console.WriteLine(dirFiles);
 
-            ListToTxt(Path);
-            // Save full list to file
+        
 
-            #region temp-comment
-            //FileCollection.Clear();
-
-            //MainWindow mainWindow = new MainWindow();
-            //StringBuilder response = new StringBuilder();
-
-
-            //int choiceMenu = int.Parse(Console.ReadLine());
-
-
-
-            //switch (choiceMenu)
-            //{
-            //    case 1:
-            //        CreateNewFileList();
-            //        break;
-
-            //    case 2:
-            //        SaveFileList();
-            //        break;
-
-            //    default:
-            //        break;
-            //}
-            #endregion
         }
-
-        public List<string> ExportDirAndFile(string path)
+        
+        public StringBuilder ExportDirAndFile(string path)
         {
-            FileCollection = new List<string>();
+            var txtFile = @"H:\_TestZips\files.csv";
+            StringBuilder exportToTxt = new StringBuilder();
 
             foreach (var dir in DirFiles(Path))
-                FileCollection.Add(dir);
+            {
+                string output = dir.Remove(0,13);
+                exportToTxt.Append(output + " \n");
+            }
 
             foreach (var file in FileFiles(Path))
-                FileCollection.Add(file);
-         
-            return FileCollection;
+            {
+                string output = file.Remove(0, 13);
+                exportToTxt.Append(output + " \n");
+            } 
+            
+
+            using (StreamWriter sw = new StreamWriter(txtFile))
+            {
+                sw.Write(exportToTxt);
+            }
+            
+
+            return exportToTxt;
         }
-
-
-        private List<FileItem> dirFiles { get; set; }
-        private List<FileItem> fileFiles { get; set; }
-        
-        private List<FileItem> rarFiles { get; set; }
-        private List<FileItem> isoFiles { get; set; }
 
         public string ListToTxt(string path)
         {
@@ -90,7 +72,8 @@ namespace FindRarWpf.Functions
                 Console.WriteLine($"   File: {fileName} ");
                 Console.WriteLine($"    Dir: {path}");
 
-                string outputFromDir = ExportDirAndFile(path).ToString();
+                StringBuilder outputFromDir = new StringBuilder();
+                outputFromDir.Append(ExportDirAndFile(path));
 
                 using (StreamWriter sw = new StreamWriter(fileDir))
                 {
@@ -128,43 +111,6 @@ namespace FindRarWpf.Functions
         }
 
 
-        //public object ExportFileList(string path)
-        //{
-        //    dirsFiles(path);
-        //    filesFiles(path);
-        //    object exportFileList = FileCollection();
-        //    return exportFileList;
-        //}
-
-        //public List<string> FileCollection() 
-        //{
-        //    path = mainWindow.CurDir;
-        //    fileCollection = new List<string>();
-        //    fileCollection.AddRange(dirsFiles(path));
-        //    fileCollection.AddRange(filesFiles(path));
-        //    return fileCollection;
-        //}
-
-
-        #region Rar and Iso
-        //private List<FileItem> RarFiles()
-        //{
-
-        //    rarFiles = new List<FileItem>();
-
-        //    return rarFiles;
-        //}
-
-        //private List<FileItem> IsoFiles()
-        //{
-        //    isoFiles = new List<FileItem>();
-
-
-
-        //    return isoFiles;
-        //}
-        #endregion
-
 
         #region Dir and files
 
@@ -193,59 +139,36 @@ namespace FindRarWpf.Functions
             }
             return getDirList;
         }
-        
+
         #endregion
 
 
-
-        #region Save or create file list 
-        //public void CreateNewFileList()
+        #region Rar and Iso
+        //private List<FileItem> RarFiles()
         //{
-        //    FileItem item = new FileItem();
-        //    StringBuilder newFileList = new StringBuilder();
-        //    newFileList.Append();
 
+        //    rarFiles = new List<FileItem>();
 
-        //    string newFileList = string.Empty;
-        //    newFileList = DirFiles(path).ToString() + FileFiles(path).ToString();
-
+        //    return rarFiles;
         //}
 
-
-        //public string SaveFileList()
+        //private List<FileItem> IsoFiles()
         //{
-        //    CreateNewFileList newFileList = new CreateNewFileList();
-
-        //    string saveFileList = string.Empty;
-        //    string pathFile = string.Empty;
-
-        //    DateTime timeStamp = DateTime.Now;
-
-        //    StringBuilder stringToTxt = new StringBuilder();
-
-        //    stringToTxt.Append(timeStamp.ToString() + "\n\n");
+        //    isoFiles = new List<FileItem>();
 
 
-        //    pathFile = path + "\\ListOfFiles.txt";
 
-        //    if (File.Exists(pathFile))
-        //        File.Delete(pathFile);
-
-
-        //    foreach (var fileItem in fileCollection)
-        //    {
-        //        stringToTxt.Append(fileItem);
-        //    }
-
-        //    using (StreamWriter sw = new StreamWriter(pathFile))
-        //    {
-        //        File.Create(pathFile);
-        //        sw.Write(saveFileList);
-        //    }
-        //    return saveFileList;
+        //    return isoFiles;
         //}
         #endregion
+
+
+
     }
+}
+
+
+
 
     /*
      *  string create = "Create file list";
@@ -278,31 +201,82 @@ namespace FindRarWpf.Functions
             //DataContext = this;
      */
 
+/*
+  
+       #region Save or create file list 
+        public void CreateNewFileList()
+        {
+            FileItem item = new FileItem();
+            StringBuilder newFileList = new StringBuilder();
+            newFileList.Append();
 
-    public class FileItem
-    {
-        public string Name { get; set; }
+
+            string newFileList = string.Empty;
+            newFileList = DirFiles(path).ToString() + FileFiles(path).ToString();
+
+        }
+
+
+        public string SaveFileList()
+        {
+            CreateNewFileList newFileList = new CreateNewFileList();
+
+            string saveFileList = string.Empty;
+            string pathFile = string.Empty;
+
+            DateTime timeStamp = DateTime.Now;
+
+            StringBuilder stringToTxt = new StringBuilder();
+
+            stringToTxt.Append(timeStamp.ToString() + "\n\n");
+
+
+            pathFile = path + "\\ListOfFiles.txt";
+
+            if (File.Exists(pathFile))
+                File.Delete(pathFile);
+
+
+            foreach (var fileItem in fileCollection)
+            {
+                stringToTxt.Append(fileItem);
+            }
+
+            using (StreamWriter sw = new StreamWriter(pathFile))
+            {
+                File.Create(pathFile);
+                sw.Write(saveFileList);
+            }
+            return saveFileList;
+        }
+        #endregion
+
+ 
+        //private List<FileItem> dirFiles { get; set; }
+        //private List<FileItem> fileFiles { get; set; }
         
-        //public List<string> DirsFiles { get; set; }
-        //public List<string> FilesFiles { get; set; }
-        //public List<string> RarFiles { get; set; }
-        //public List<string> IsoFiles { get; set; }
+        //private List<FileItem> rarFiles { get; set; }
+        //private List<FileItem> isoFiles { get; set; }
+
+        
+    //public class FileItem
+    //{
+    //    public string Name { get; set; }
+        
+    //    //public List<string> DirsFiles { get; set; }
+    //    //public List<string> FilesFiles { get; set; }
+    //    //public List<string> RarFiles { get; set; }
+    //    //public List<string> IsoFiles { get; set; }
        
         
-        //public int Size { get; set; }
+    //    //public int Size { get; set; }
         
         
-        //public FileItem(string name)
-        //{
-        //    name = Name;
-        //}
-    }
-}
-
-
-/*
- 
-
+    //    //public FileItem(string name)
+    //    //{
+    //    //    name = Name;
+    //    //}
+    //}
 
 
     #region old version
@@ -377,7 +351,67 @@ namespace FindRarWpf.Functions
             return dirFiles;
         }
 
+        //public object ExportFileList(string path)
+        //{
+        //    dirsFiles(path);
+        //    filesFiles(path);
+        //    object exportFileList = FileCollection();
+        //    return exportFileList;
+        //}
 
+        //public List<string> FileCollection() 
+        //{
+        //    path = mainWindow.CurDir;
+        //    fileCollection = new List<string>();
+        //    fileCollection.AddRange(dirsFiles(path));
+        //    fileCollection.AddRange(filesFiles(path));
+        //    return fileCollection;
+        //}
 
     #endregion
+
+
+
+            #region temp-comment
+            //FileCollection.Clear();
+
+            //MainWindow mainWindow = new MainWindow();
+            //StringBuilder response = new StringBuilder();
+
+
+            //int choiceMenu = int.Parse(Console.ReadLine());
+
+
+
+            //switch (choiceMenu)
+            //{
+            //    case 1:
+            //        CreateNewFileList();
+            //        break;
+
+            //    case 2:
+            //        SaveFileList();
+            //        break;
+
+            //    default:
+            //        break;
+            //}
+            #endregion
+
+    //ListToTxt(Path);
+            // Save full list to file
  */
+
+/*
+public List<string> ExportDirAndFile(string path)
+{
+    FileCollection = new List<string>();
+
+    foreach (var dir in DirFiles(Path))
+        FileCollection.Add(dir);
+
+    foreach (var file in FileFiles(Path))
+        FileCollection.Add(file);
+
+    return FileCollection;
+}*/
