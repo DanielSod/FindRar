@@ -22,25 +22,14 @@ namespace FindRarWpf
     public partial class MainWindow : Window
     {
         public string Path { get; set; }
-        public List<string> ListOfFiles { get; set; }
+        public List<MyFile> ListOfFiles { get; set; }
         private string EmptyString = string.Empty;
 
         public MainWindow()
         {
             InitializeComponent();
-            Path = @"H:\_TestZips\";
-            
-            
-
-
-            //var tryFile = new MyFile();
-            //tryFile.Name = "rumpa";
-
-            //var trFile = new MyFile();
-            //trFile.Name = "fitta";
-
-            //var tFile = new MyFile();
-            //tFile.Name = "tutte";
+            //Path = @"H:\_TestZips\";
+            Path = @"F:\#Reinstall_Main\";
         }
 
         //CurDir
@@ -79,6 +68,27 @@ namespace FindRarWpf
             createFileList.FileListMain(Path);
             createFileList.ListToTxt(Path);
             ListMyFiles.ItemsSource = MyFiles.GetFileList();
+
+            if (ListOfFiles.Contains(MyFile item.Extension.ToString()
+                
+                
+                
+            {
+                btnFindRar.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                btnFindRar.Visibility = System.Windows.Visibility.Hidden;
+            }
+            
+            if (ListOfFiles.Contains(".iso"))
+            {
+                btnFindIso.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                btnFindIso.Visibility = System.Windows.Visibility.Hidden;
+            }
             txtDir.Text = Path;
         }
         
@@ -112,19 +122,35 @@ namespace FindRarWpf
         {
             this.Close();
         }
+        
+        private void btnFindRar_Click(object sender, RoutedEventArgs e)
+        {
+            Unpacks unpacks = new Unpacks();
+            ListOfFiles = unpacks.FindRar();
+            ListMyFiles.ItemsSource();
+            
+        }
+
+        private void btnFindIso_Click(object sender, RoutedEventArgs e)
+        {
+            Unpacks unpacks = new Unpacks();
+            unpacks.FindIso();
+        }
 
         private void ListMyFiles_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
         {
 
         }
+
     }
 
     public class MyFiles
     {
+        public string Path { get; set; }
         public static List<MyFile> FileList { get; set; } = GetFileList();
         public static List<MyFile> GetFileList()
         {
-            var file = @"H:\_TestZips\files.csv";
+            var file = @"F:\#Reinstall_Main\";
             var lines = File.ReadAllLines(file);
             var list = new List<MyFile>();
             for (int i = 0; i < lines.Length; i++)
@@ -151,6 +177,8 @@ namespace FindRarWpf
         public int Id { get; set; }
         public string Name { get; set; }
         public int Size { get; set; }
+        public string Extension { get; set; }
+
         //public string Extension { get; set; }
         //public Type Type { get; set; }
 

@@ -10,7 +10,7 @@
     <!--<Window.DataContext>
         <local:MyFiles/>
     </Window.DataContext>-->
-    
+
     <Grid>
 
 
@@ -23,11 +23,11 @@
         <!-- DataGrid -->
         <DataGrid x:Name="ListMyFiles"
                   HorizontalAlignment="Left" VerticalAlignment="Top" 
-                  Margin="140,150,0,0"  
+                  Margin="140,211,0,0"  
                   Height="400" Width="712" 
                   ScrollBar.Scroll="ListMyFiles_Scroll"/>
 
-        
+
         <!-- Buttons -->
         <Button Content="Clear" x:Name="btnmClear" 
                 Click="btnmClear_Click"
@@ -38,15 +38,14 @@
         <Button Content="Create file list" x:Name="btnCreateFileList" 
                 Click="btnCreateFileList_Click"
                 VerticalAlignment="Top" HorizontalAlignment="Left" 
-                Margin="35,152,0,0" 
+                Margin="35,150,0,0" 
                 Width="80" Height="45"/>
 
         <Button Content="Directory" x:Name="btnDirectory" Click="btnDirectory_Click"
                 VerticalAlignment="Top" HorizontalAlignment="Left" 
-                Margin="35,221,0,0" 
+                Margin="35,219,0,0" 
                 Width="80" Height="45"/>
 
-        
         <Button Content="Unpack" x:Name="btnUnpack" Click="btnUnpack_Click"
                 Margin="35,289,0,0" 
                 VerticalAlignment="Top" HorizontalAlignment="Left" 
@@ -62,13 +61,29 @@
             VerticalAlignment="Top" HorizontalAlignment="Left" 
             Width="80" Height="45"/>
 
+        
+
+        <Button Content="Find Rar files" x:Name="btnFindRar" 
+            Click="btnFindRar_Click" Visibility="Hidden"
+            VerticalAlignment="Top" HorizontalAlignment="Left" 
+            Margin="209,150,0,0" 
+            Width="80" Height="45"/>
+
+        <Button Content="Find Iso files" x:Name="btnFindIso" 
+            Click="btnFindIso_Click" Visibility="Visible"
+            VerticalAlignment="Top" HorizontalAlignment="Left" 
+            Margin="325,150,0,0" 
+            Width="80" Height="45"/>
+
+        
+
         <!-- Status, progress -->
         <StatusBar HorizontalAlignment="Left" VerticalAlignment="Top"
-                   Height="24" Margin="378,569,0,0"  
+                   Height="24" Margin="378,630,0,0"  
                    Width="175"/>
 
         <ProgressBar HorizontalAlignment="Left" VerticalAlignment="Top"
-                     Margin="141,569,0,0"  
+                     Margin="141,630,0,0"  
                      Height="24" Width="132"/>
 
 
@@ -81,11 +96,13 @@
         <!-- Grids -->
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top"
               Margin="10,10,0,0"
-              Height="399" Width="100"/>
+              Height="699" Width="100"/>
 
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" 
               Margin="125,10,0,0" 
-              Height="599" Width="372"/>
+              Height="672" Width="727"/>
+        
+        
 
 
     </Grid>

@@ -34,27 +34,27 @@ namespace FindRarWpf.Functions
         
         public StringBuilder ExportDirAndFile(string path)
         {
-            var txtFile = @"H:\_TestZips\files.csv";
+            var txtFile = @"C:\Users\danie\3D Objects\files.csv";
             StringBuilder exportToTxt = new StringBuilder();
 
             foreach (var dir in DirFiles(Path))
             {
-                string output = dir.Remove(0,13);
+                //string output = dir.Remove(0,13);
+                string output = dir.Remove(0, 19);
                 exportToTxt.Append(output + " \n");
             }
 
             foreach (var file in FileFiles(Path))
             {
-                string output = file.Remove(0, 13);
+                //string output = file.Remove(0, 13);
+                string output = file.Remove(0, 19);
                 exportToTxt.Append(output + " \n");
             } 
-            
 
             using (StreamWriter sw = new StreamWriter(txtFile))
             {
                 sw.Write(exportToTxt);
             }
-            
 
             return exportToTxt;
         }
